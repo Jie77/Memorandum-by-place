@@ -1,10 +1,14 @@
-var memoLists = [
-	{
-		todoList:[]
-	}
-]
 
-Vue.component('card', {
+
+
+if(window.plus){
+    plusReady();
+}else{ 
+    document.addEventListener( "plusready", plusReady, false );
+}
+// 扩展API准备完成后要执行的操作
+function plusReady(){
+    Vue.component('card', {
 	data:function(){
 		return {
 			show:false,
@@ -56,12 +60,19 @@ Vue.component('card', {
 		}
 	}
 })
-
+var store = {
+	set(key,value){
+		plus.storage.setItem(key,JSON.stringify(value));
+	},
+	get(key){
+		return JSON.parse(plus.storage.getItem(key)) || [];
+	}
+}		
 var vm = new Vue({
 	el:"#main",
 	data:{
-		memoLists:memoLists
+		memoLists:store.get("test")
 	}
 	
 })
-
+}
