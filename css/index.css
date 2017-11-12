@@ -1,0 +1,31 @@
+body,html,#container{
+  height: 100%;
+  margin: 0px;
+}
+.todo-input{
+	position:relative;
+	z-index: 1000;
+	width:calc(100% - 70px);
+	margin:20px auto;
+}
+.info{
+	position:relative;
+	height:40px;
+	width:30px;
+	text-align:center;
+	line-height:38px;
+	border-top:1px solid rgba(0, 0, 0, .2);
+	border-bottom:1px solid rgba(0, 0, 0, .2);
+	border-left:1px solid rgba(0, 0, 0, .2);
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	background: #fff;
+	float: left;
+	left:2px;
+}
+input[type="text"]{
+	width:calc(100% - 40px);
+	border-left:none;
+	border-top-right-radius: none;
+	border-bottom-right-radius: none;
+}
