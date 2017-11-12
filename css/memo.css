@@ -1,0 +1,52 @@
+.card-footer{
+	transform-origin:0 0;
+}
+.readmore{
+	position: relative;
+  left: calc(100% - 79px);
+	bottom:0;
+	padding-right:10px;
+}
+.completed{
+  color: #d9d9d9;
+  text-decoration: line-through;
+}
+.mui-input-row label{
+  line-height:40px;
+  padding-top:0;
+  padding-bottom:0;
+}
+.mui-input-group .mui-input-row:after{
+  right:15px;
+}
+input[type="text"]{
+  margin-bottom:25px;
+}
+.fade-enter-active {
+  animation: fade-in 0.5s;
+}
+
+@keyframes fade-in {
+  0% {
+      transform: scale(1,0);
+  }
+  100% {
+      transform: scale(1,1);
+  }
+}
+.del{
+  display:block;
+  position:absolute;
+  right:10px;
+  width:30px;
+  height:30px;
+  margin:5px 0;
+  padding:0;
+  border:0;
+}
+.delMemo{
+  right:0;
+  text-align: center;
+  line-height: 30px;
+  z-index:1000;
+}

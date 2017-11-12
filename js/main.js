@@ -21,13 +21,14 @@ var store = {
 				todo:""
 			}
 		},
-		props: ['memo'],
+		props: ['memo',"num"],
 	 	template:"<div class=\"mui-card\">"+
-	"			<div class=\"mui-card-header mui-card-media\" style=\"height:40vw;background-image:url(../images/cbd.jpg)\"></div>"+
+	 	"					<a class=\"del delMemo\" @click=\"delSelf(num)\">X</a>"+
+	"			<div class=\"mui-card-header mui-card-media\" style=\"height:40vw;background-image:url()\"></div>"+
 	"			<div class=\"mui-card-content\">"+
 	"				<div class=\"mui-card-content-inner\">"+
 	"					<p>Posted on January 18, 2016</p>"+
-	"					<p style=\"color: #333;\">点击read more添加备忘</p>"+
+	"					<p style=\"color: #333;\">点击read more查看更多</p>"+
 	"				</div>"+
 	"			</div>"+
 	"			<input type=\"text\" placeholder=\"+enter 添加任务\" v-model=\"todo\" v-on:keyup.13=\"addList(memo.todoList)\">"+
@@ -62,6 +63,9 @@ var store = {
 			},
 			leave:function(el,done){
 				$(el).animate({height:"0"},{duration:500,complete:done},500)
+			},
+			delSelf:function(num){
+				this.$emit('del', num)
 			}
 		}
 	})
@@ -75,11 +79,14 @@ var store = {
 		watch:{
 			memoLists:{
 				handler: function(){
-					console.log("jj")
-					console.log(this)
 					store.set("test",this.memoLists)
 				},
 				deep:true
+			}
+		},
+		methods:{
+			delMemo:function(num){
+				this.memoLists.splice(num,1)
 			}
 		}
 	})

@@ -11,54 +11,7 @@
   <script type="text/javascript" charset="utf-8">
     mui.init();
   </script>
-  <style type="text/css">
-  	.card-footer{
-  		transform-origin:0 0;
-  	}
-  	.readmore{
-  		position:absolute;
-  		right:0;
-  		bottom:0;
-  		padding-right:10px;
-  	}
-    .completed{
-      color: #d9d9d9;
-      text-decoration: line-through;
-    }
-    .mui-input-row label{
-      line-height:40px;
-      padding-top:0;
-      padding-bottom:0;
-    }
-    .mui-input-group .mui-input-row:after{
-      right:15px;
-    }
-    input[type="text"]{
-      margin-bottom:25px;
-    }
-    .fade-enter-active {
-      animation: fade-in 1s;
-    }
-    
-    @keyframes fade-in {
-      0% {
-          transform: scale(1,0);
-      }
-      100% {
-          transform: scale(1,1);
-      }
-    }
-    .del{
-      display:block;
-      position:absolute;
-      right:10px;
-      width:30px;
-      height:30px;
-      margin:5px 0;
-      padding:0;
-      border:0;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="css/memo.css">
 </head>
 <body>
   <header class="mui-bar mui-bar-nav">
@@ -66,7 +19,7 @@
     <h1 class="mui-title">我的备忘录</h1>
   </header>
 	<div class="mui-content" id="main">
-		<card v-for="memo in memoLists" v-bind:memo="memo" :key="memo.id"></card>
+		<card v-for="(memo,index) in memoLists" :memo="memo" :key="memo.id" :num="index" @del="delMemo"></card>
 	</div>
 	<script type="text/javascript" src="js/main.js"></script>
 </body>
