@@ -50,3 +50,22 @@ input[type="text"]{
   line-height: 30px;
   z-index:1000;
 }
+.icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  color:#8f8f94;
+  margin-left:5px;
+}
+input[type=time]{
+  border:none;
+  padding:0;
+  width:0px;
+  margin:0;
+  margin-left:10px;
+}
+.mui-card-content-inner{
+  padding-bottom:0;
+}

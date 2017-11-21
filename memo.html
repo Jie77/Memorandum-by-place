@@ -8,6 +8,7 @@
   <script type="text/javascript" src="js/jquery.js"></script>
   <link href="css/mui.min.css" rel="stylesheet"/>
   <script type="text/javascript" src="js/vue.js"></script>
+  <script type="text/javascript" src="js/iconfont.js"></script>
   <script type="text/javascript" charset="utf-8">
     mui.init();
   </script>
@@ -19,7 +20,13 @@
     <h1 class="mui-title">我的备忘录</h1>
   </header>
 	<div class="mui-content" id="main">
-		<card v-for="(memo,index) in memoLists" :memo="memo" :key="memo.id" :num="index" @del="delMemo"></card>
+		<card v-for="(memo,index) in memoLists"
+         :memo="memo" 
+         :key="memo.id" 
+         :num="index" 
+         @del="delMemo"
+         @remind="getRemindTime"
+    ></card>
 	</div>
 	<script type="text/javascript" src="js/main.js"></script>
 </body>

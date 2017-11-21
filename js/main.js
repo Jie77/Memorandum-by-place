@@ -18,17 +18,29 @@ var store = {
 			return {
 				show:false,
 				todoLength:0,
-				todo:""
+				todo:"",
+				alartTime:""
 			}
 		},
 		props: ['memo',"num"],
 	 	template:"<div class=\"mui-card\">"+
 	 	"					<a class=\"del delMemo\" @click=\"delSelf(num)\">X</a>"+
-	"			<div class=\"mui-card-header mui-card-media\" style=\"height:40vw;background-image:url()\"></div>"+
+	"			<div class=\"mui-card-header mui-card-media\" style=\"height:40vw;background-image:url(./image/0.jpg)\"></div>"+
 	"			<div class=\"mui-card-content\">"+
 	"				<div class=\"mui-card-content-inner\">"+
-	"					<p>Posted on January 18, 2016</p>"+
-	"					<p style=\"color: #333;\">点击read more查看更多</p>"+
+	"					<p>Wrote on {{ memo.postTime }}</p>"+
+	"					<p>Destination {{ memo.place }}</p>"+
+	"					<p>Remind"+
+	"						<label>"+
+	"							<span class=\"mui-icon\">"+
+	"								<svg class=\"icon\" aria-hidden=\"true\">"+
+	"									<use xlink:href=\"#icon-alarm\"></use>"+
+	"								</svg>"+
+	"							</span>"+
+	"                       	<input id=\"time\" type=\"time\" v-model=\"alartTime\" @change=\"setTime(num)\">{{ memo.remindTime }}"+
+	"						</label>"+
+	
+	"					</p>"+
 	"				</div>"+
 	"			</div>"+
 	"			<input type=\"text\" placeholder=\"+enter 添加任务\" v-model=\"todo\" v-on:keyup.13=\"addList(memo.todoList)\">"+
@@ -66,8 +78,18 @@ var store = {
 			},
 			delSelf:function(num){
 				this.$emit('del', num)
+			},
+			setTime:function(num){
+				this.$emit("remind",this.alartTime,num)
 			}
-		}
+		},
+		// watch:{
+		// 	alartTime:function(){
+		// 		console.log("time set")
+		// 		console.log(this.alartTime)
+		// 		this.$emit("remind",this.alartTime)
+		// 	}
+		// }
 	})
 
 	
@@ -79,6 +101,7 @@ var store = {
 		watch:{
 			memoLists:{
 				handler: function(){
+					console.log("memoLists change")
 					store.set("test",this.memoLists)
 				},
 				deep:true
@@ -87,6 +110,14 @@ var store = {
 		methods:{
 			delMemo:function(num){
 				this.memoLists.splice(num,1)
+			},
+			getRemindTime:function(str,num){
+				console.log(str)
+				console.log("memo num:"+num)
+				this.memoLists[num].remindTime = str
+				for (let i in this.memoLists[num]){
+					console.log(i+"---"+this.memoLists[num][i])
+				}
 			}
 		}
 	})
