@@ -86,28 +86,38 @@ function plusReady(){
 						})
 						var value = that.memoInput
 						console.log("目的地地址："+value)
+						console.log("出行方式代号："+that.tripwayIndex)
 						switch(that.tripwayIndex){
 							case 0:
 								transfer.clear()
+								walking.clear()
+								driving.clear()
 								transfer.search([p.coords.longitude,p.coords.latitude],that.desPosition,function(status,result){
 									that.memoInput = ""
-									console.log("耗时"+"分钟")
+									console.log("公交车耗时"+Math.ceil(result.plans[0].time/60)+"分钟")
+									mui.toast("公交车耗时"+Math.ceil(result.plans[0].time/60)+"分钟",{ duration:'long', type:'div' })
 								})
 								break
 							case 1:
+								transfer.clear()
 								walking.clear()
+								driving.clear()
 								walking.search([p.coords.longitude,p.coords.latitude],that.desPosition,function(status,result){
 									that.memoInput = ""
-									console.log("耗时"+Math.ceil(result.routes[0].time/60)+"分钟")
+									console.log("步行耗时"+Math.ceil(result.routes[0].time/60)+"分钟")
+									mui.toast("步行耗时"+Math.ceil(result.routes[0].time/60)+"分钟",{ duration:'long', type:'div' })
 								})
 								break
 							case 2:
+								transfer.clear()
+								walking.clear()
 								driving.clear()
 								console.log("本地经纬度："+[p.coords.longitude,p.coords.latitude])
 								console.log("目的地经纬度："+that.desPosition)
 								driving.search([p.coords.longitude,p.coords.latitude],that.desPosition,function(status,result){
 									that.memoInput = ""
-									console.log("耗时"+Math.ceil(result.routes[0].time/60)+"分钟")
+									console.log("开车耗时"+Math.ceil(result.routes[0].time/60)+"分钟")
+									mui.toast("开车耗时"+Math.ceil(result.routes[0].time/60)+"分钟",{ duration:'long', type:'div' })
 								})
 								break
 						}
@@ -135,9 +145,17 @@ function plusReady(){
 						that.memoInput = item.poi.name
 						that.desPosition = [item.poi.location.lng,item.poi.location.lat]
 						console.log("修改目的地成功:"+that.desPosition)
+						map.setCenter([item.poi.location.lng,item.poi.location.lat])
+						map.setZoom(15)
+						var marker = new AMap.Marker({
+							position: [item.poi.location.lng,item.poi.location.lat],
+							map:map
+						})
 					})
 				})
-
+			},
+			tripwayIndex:function(){
+				console.log("出行方式代号改变："+this.tripwayIndex)
 			}
 		}
 	})

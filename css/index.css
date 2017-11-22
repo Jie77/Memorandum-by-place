@@ -5,7 +5,7 @@ body,html,#container{
 .todo-input{
 	position:relative;
 	z-index: 1000;
-	width:calc(100% - 70px);
+	width:calc(100% - 20px);
 	margin:20px auto;
 }
 .info{
@@ -24,10 +24,11 @@ body,html,#container{
 	left:2px;
 }
 input[type="text"]{
-	width:calc(100% - 40px);
+	width:calc(100% - 90px);
 	border-left:none;
 	border-top-right-radius: none;
 	border-bottom-right-radius: none;
+	float:left;
 }
 .ceshi{
 	position: relative;
@@ -56,4 +57,16 @@ input[type="text"]{
 	fill: currentColor;
 	overflow: hidden;
 	color:#1F1E1E;
+}
+select{
+	font-size: 14px;
+    height: 38px;
+    margin-top: 1px;
+    border: 1px solid rgba(0,0,0,.2);
+    background-color: #fff;
+    width: 50px;
+    padding: 10px;
+    position: relative;
+    z-index: 100;
+    right: -10px;
 }
