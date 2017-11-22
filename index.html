@@ -7,6 +7,7 @@
     <title>Demo</title>
     <script src="js/mui.min.js"></script>
     <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript" src="js/iconfont1.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <script type="text/javascript" charset="utf-8">
@@ -21,6 +22,15 @@
 			</div>
 			<input type="text" placeholder="请输入备忘地点" id="drivepos" v-model="memoInput" v-on:keyup.13="addMemo">
 		</div>
+    <div class="dingwei" id="dingwei">
+      <a @click="dingwei">
+        <span class="mui-icon">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-dingwei">
+          </svg>
+        </span>
+      </a>
+    </div>
 	</div>
 	<div id="panel"></div>
 	

@@ -55,7 +55,7 @@ var store = {
 	"					</form>"+
 	"				</div>"+
 	"			</transition>"+
-	"			<span class=\"readmore\"><a @click=\"showTodos(memo.todoList)\">Read more</a></span>"+
+	"			<span class=\"readmore\"><a @click=\"showTodos(memo.todoList)\">Show Todo</a></span>"+
 	"		</div>	",
 		methods:{
 			showTodos:function(list){
@@ -112,12 +112,12 @@ var store = {
 				this.memoLists.splice(num,1)
 			},
 			getRemindTime:function(str,num){
-				console.log(str)
-				console.log("memo num:"+num)
+				// console.log(str)
+				// console.log("memo num:"+num)
 				this.memoLists[num].remindTime = str
-				for (let i in this.memoLists[num]){
-					console.log(i+"---"+this.memoLists[num][i])
-				}
+				// for (let i in this.memoLists[num]){
+				// 	console.log(i+"---"+this.memoLists[num][i])
+				// }
 			}
 		}
 	})
