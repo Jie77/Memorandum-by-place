@@ -69,3 +69,18 @@ input[type=time]{
 .mui-card-content-inner{
   padding-bottom:0;
 }
+.box{
+  position: absolute;
+  z-index:100;
+  width:200px;
+  height:200px;
+  background:#e0fee7;
+  margin:0 auto;
+  margin-top:100px;
+  font-size:20px;
+  text-align:center;
+  display:none;
+}
+.showbox{
+  display:block;
+}

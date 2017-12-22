@@ -138,7 +138,7 @@ function plusReady(){
 					that = this
 					AMap.plugin('AMap.Autocomplete',function(){ 
 						const autoOptions = {
-							city:'',//城市，默认全国
+							city:'西安市',//城市，默认全国
 							input:"drivepos" //使用联想输入的input的id
 						}
 						var autocomplete = new AMap.Autocomplete(autoOptions)

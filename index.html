@@ -11,22 +11,22 @@
     <link href="css/mui.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <script type="text/javascript" charset="utf-8">
-      	mui.init();
+      mui.init();
     </script>
 </head>
 <body>
 	<div id="container" tabindex="0">
-  		<div class="todo-input" id="todo-input">
-  			<div class="info">
-  				<a href="memo.html" id="icon-icon-contact"><span class="mui-icon mui-icon-contact"></span></a>
-  			</div>
-  			<input type="text" placeholder="请输入备忘地点" id="drivepos" v-model="memoInput" v-on:keyup.13="addMemo">
+      <div class="todo-input" id="todo-input">
+        <div class="info">
+          <a href="memo.html" id="icon-icon-contact"><span class="mui-icon mui-icon-contact"></span></a>
+        </div>
+        <input type="text" placeholder="请输入备忘地点" id="drivepos" v-model="memoInput" v-on:keyup.13="addMemo">
         <select v-model="tripwayIndex">
           <option :value=0>公交</option>
           <option :value=1>步行</option>
           <option :value=2>汽车</option>
         </select>
-  		</div>
+      </div>
     <div class="dingwei" id="dingwei">
       <a @click="dingwei">
         <span class="mui-icon">
@@ -38,7 +38,7 @@
     </div>
 	</div>
 	<div id="panel"></div>
-	
+
   <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=0ea6b6f034bf423dc86b27d979bcdb21"></script>
   <script type="text/javascript" src="js/index.js"></script>
 </body>

@@ -19,15 +19,20 @@
     <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
     <h1 class="mui-title">我的备忘录</h1>
   </header>
-	<div class="mui-content" id="main">
-		<card v-for="(memo,index) in memoLists"
-         :memo="memo" 
-         :key="memo.id" 
-         :num="index" 
+  <div class="mui-content" id="main">
+    <audio src='aa.mp3' type='audio/mp3' id='music'></audio>
+    <!-- <div class="box" :class='{showbox:show}'>
+        {{ tip }}
+        <button id="btn" @click="stopRemind">关闭声音</button>
+    </div> -->
+    <card v-for="(memo,index) in memoLists"
+         :memo="memo"
+         :key="memo.id"
+         :num="index"
          @del="delMemo"
          @remind="getRemindTime"
     ></card>
-	</div>
-	<script type="text/javascript" src="js/main.js"></script>
+  </div>
+  <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
