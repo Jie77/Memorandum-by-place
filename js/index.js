@@ -73,7 +73,10 @@ function plusReady(){
 						todoList:[],
 						place:this.memoInput,
 						postTime:getTime(),
-						remindTime:""
+						remindTime:"",
+						isAllFinished:false,
+						arrived:false,
+						des:this.desPosition
 					})
 					store.set("test",this.memoLists)
 				},

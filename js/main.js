@@ -6,13 +6,13 @@ var store = {
 		return JSON.parse(localStorage.getItem(key)) || [];
 	}
 }		
-// if(window.plus){
-//     plusReady();
-// }else{ 
-//     document.addEventListener( "plusready", plusReady, false );
-// }
-// // 扩展API准备完成后要执行的操作
-// function plusReady(){
+if(window.plus){
+    plusReady();
+}else{ 
+    document.addEventListener( "plusready", plusReady, false );
+}
+// 扩展API准备完成后要执行的操作
+function plusReady(){
 	Vue.component('card', {
 		data:function(){
 			return {
@@ -82,14 +82,35 @@ var store = {
 			setTime:function(num){
 				this.$emit("remind",this.alartTime,num)
 			}
+		},
+		watch: {
+			memo:{
+				handler:function(){
+					//console.log(this.memo.todoList)
+					let flag = 0
+					for (let item in this.memo.todoList){
+						if (!this.memo.todoList[item].isfinished){
+							flag = 1
+							break
+						}
+					}
+					if (flag == 0){
+						this.memo.isAllFinished = true
+					}else{
+						this.memo.isAllFinished = false
+					}
+
+					for (let i in this.memo){
+						console.log(i)
+					}
+					console.log("---------------------------------")
+					console.log(this.memo.isAllFinished)
+					console.log(this.memo.des)
+				},
+				deep:true
+			}
 		}
-		// watch:{
-		// 	alartTime:function(){
-		// 		console.log("time set")
-		// 		console.log(this.alartTime)
-		// 		this.$emit("remind",this.alartTime)
-		// 	}
-		// }
+		
 	})
 
 	
@@ -99,7 +120,8 @@ var store = {
 			memoLists:store.get("test"),
 			nowTime: '',
             // show:true,
-            timer:'',
+			timer:'',
+			timer1:'',
 			player:'',
 			// tip:''
 		},
@@ -156,8 +178,8 @@ var store = {
 				this.player = document.getElementById('music')
 				
 				for (let item in this.memoLists){
-					console.log("remind:"+this.memoLists[item].remindTime)
-                	console.log('now:'+this.nowTime)
+					//console.log("remind:"+this.memoLists[item].remindTime)
+                	//console.log('now:'+this.nowTime)
 					if (this.memoLists[item].remindTime == this.nowTime){
 						this.player.play()
 						let btnArray = ['ok']
@@ -168,21 +190,45 @@ var store = {
 								self.stopRemind()
 							}
 						})
-						
-                    	// this.show = true
 					}
 				}
 
-                // console.log("remind:"+this.remindTime)
-                // console.log('now:'+this.nowTime)
-                // if (this.remindTime == this.nowTime){
-                //     this.player.play()
-                //     this.show = true
-                // }
-            }
+			},
+			leaveplace: function(){
+				self = this
+				plus.geolocation.getCurrentPosition(function(p){
+					// console.log('Geolocation\nLatitude:' + p.coords.latitude + '\nLongitude:' + p.coords.longitude);
+					for (let item in self.memoLists){
+						if (self.memoLists[item].arrived == false){
+							if (self.memoLists[item].des[0]-0.01 <= p.coords.latitude && p.coords.latitude <= self.memoLists[item].des[0]+0.01 && self.memoLists[item].des[1]-0.01 <= p.coords.longitude && p.coords.longitude <= self.memoLists[item].des[1]+0.01){
+								self.memoLists[item].arrived = true
+								self.timer1 = setInterval(self.leaveplace,1000) 
+							}
+						}else{
+							if (!(self.memoLists[item].des[0]-0.01 <= p.coords.latitude && p.coords.latitude <= self.memoLists[item].des[0]+0.01 && self.memoLists[item].des[1]-0.01 <= p.coords.longitude && p.coords.longitude <= self.memoLists[item].des[1]+0.01)){
+								if (!self.memoLists[item].isAllFinished){
+									self.memoLists[item].arrived = false
+									clearInterval(self.timer1)
+									self.player.play()
+									let btnArray = ['ok']
+									mui.confirm('还有事情没做完', '地点：'+self.memoLists[item].place, btnArray, function(e) {
+										if (e.index == 0) {
+											self.player.pause()
+										}
+									})
+									break
+								}
+							}
+						}
+					 }
+				}, function(e){
+					console.log('Geolocation error: ' + e.message);
+				} );
+			}
 		},
 		beforeMount () {
-            this.timer = setInterval(this.remind,1000) 
+			this.timer = setInterval(this.remind,1000) 
+			this.timer1 = setInterval(this.leaveplace,1000) 
         }
 	})
-//}
+}
