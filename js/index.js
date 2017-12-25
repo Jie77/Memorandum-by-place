@@ -4,7 +4,7 @@ const map = new AMap.Map('container',{
 	zoom:10,
 	center:[108.939621,34.343147]
 })
-
+//初始化扩展api
 if(window.plus){
 	plusReady();
 }else{ 
@@ -21,7 +21,7 @@ const store = {
 	}
 }
 
-//获取时间
+//获取当前时间并格式化
 function getTime(){
 	const monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"]
 	const time = new Date()
@@ -33,6 +33,11 @@ function getTime(){
 }
 
 function plusReady(){
+	/*
+		初始化高德服务
+		调用三种乘车策略
+		公交，步行，驾车
+	*/
 	AMap.service(['AMap.Transfer','AMap.Walking','AMap.Driving','AMap.Geocoder'],function(){
 		const transOptions = {
 			map:map,
@@ -60,26 +65,29 @@ function plusReady(){
 			el:"#todo-input",
 			data:{
 				memoLists:store.get("test")||[],
-				memoInput:"",
-				tripwayIndex:2,
-				desPosition:[]
+				memoInput:"", //用来记录用户当前输入值
+				tripwayIndex:2, //默认出行方式汽车
+				desPosition:[] //用来记录目的地经纬度
 			},
 			methods:{
 				//添加备忘模块，这里只添加大体结构，具体内容在每个小块中添加
 				addMemo:function(){
 					console.log("进入addMemo函数")
 					this.tripMode()
+					//添加备忘录单元
 					this.memoLists.push({
-						todoList:[],
-						place:this.memoInput,
-						postTime:getTime(),
-						remindTime:"",
-						isAllFinished:false,
-						arrived:false,
-						des:this.desPosition
+						todoList:[], //用来记录备忘条目
+						place:this.memoInput, //记录出行地点
+						postTime:getTime(), //记录设定备忘时间
+						remindTime:"", //提醒时间
+						isAllFinished:false, //备忘条目是否全部完成
+						arrived:false, //是否到达备忘地点
+						des:this.desPosition //目的地经纬度
 					})
+					//更新储存备忘录
 					store.set("test",this.memoLists)
 				},
+				//选择出行模式
 				tripMode:function(){
 					console.log("进入tripMode函数")
 					var that = this
@@ -90,11 +98,14 @@ function plusReady(){
 						var value = that.memoInput
 						console.log("目的地地址："+value)
 						console.log("出行方式代号："+that.tripwayIndex)
+						//根据不同出行模式，获得不同出行路线，给出出行时间
 						switch(that.tripwayIndex){
 							case 0:
+								//首先要清除原来的搜索记录，避免地图上出现多条路线
 								transfer.clear()
 								walking.clear()
 								driving.clear()
+								//主动删除旧标记点
 								map.remove(marker)
 								transfer.search([p.coords.longitude,p.coords.latitude],that.desPosition,function(status,result){
 									that.memoInput = ""
@@ -135,7 +146,7 @@ function plusReady(){
 
 			},
 			watch:{
-				//在这里实现联想输入功能，原本是在vue外边实现，电脑可以实现，手机端不可以，想到了vue是虚dom的原因，故此功能在此实现
+				//在这里实现联想输入功能
 				memoInput:function(){
 					//实现关键词联想
 					that = this
@@ -150,8 +161,11 @@ function plusReady(){
 							that.memoInput = item.poi.name
 							that.desPosition = [item.poi.location.lng,item.poi.location.lat]
 							console.log("修改目的地成功:"+that.desPosition)
+							//移动地图中心到目标地点
 							map.setCenter([item.poi.location.lng,item.poi.location.lat])
+							//放大地图
 							map.setZoom(15)
+							//对目标地点进行标记
 							marker = new AMap.Marker({
 								position: [item.poi.location.lng,item.poi.location.lat],
 								map:map

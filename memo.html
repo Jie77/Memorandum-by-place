@@ -25,6 +25,7 @@
         {{ tip }}
         <button id="btn" @click="stopRemind">关闭声音</button>
     </div> -->
+    <!-- 遍历渲染备忘录单元 -->
     <card v-for="(memo,index) in memoLists"
          :memo="memo"
          :key="memo.id"
