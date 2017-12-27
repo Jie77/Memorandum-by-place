@@ -82,7 +82,8 @@ function plusReady(){
 						remindTime:"", //提醒时间
 						isAllFinished:false, //备忘条目是否全部完成
 						arrived:false, //是否到达备忘地点
-						des:this.desPosition //目的地经纬度
+						des:this.desPosition, //目的地经纬度
+						reminded:false //是否提醒过
 					})
 					//更新储存备忘录
 					store.set("test",this.memoLists)

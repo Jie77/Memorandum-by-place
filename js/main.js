@@ -209,6 +209,7 @@ function plusReady(){
                 	//console.log('now:'+this.nowTime)
 					if (this.memoLists[item].remindTime == this.nowTime){
 						//播放音乐
+						this.memoLists[item].reminded == true
 						this.player.play()
 						//每隔500ms震动500ms
 						this.vibrate = setInterval(function(){
@@ -242,15 +243,17 @@ function plusReady(){
 					// console.log('Geolocation\nLatitude:' + p.coords.latitude + '\nLongitude:' + p.coords.longitude);
 					for (let item in self.memoLists){
 						if (self.memoLists[item].arrived == false){
-							if (self.memoLists[item].des[0]-0.01 <= p.coords.latitude && p.coords.latitude <= self.memoLists[item].des[0]+0.01 && self.memoLists[item].des[1]-0.01 <= p.coords.longitude && p.coords.longitude <= self.memoLists[item].des[1]+0.01){
+							if (self.memoLists[item].des[0]-0.01 <= p.coords.latitude && p.coords.latitude <= self.memoLists[item].des[0]+0.01 && self.memoLists[item].des[1]-0.01 <= p.coords.longitude && p.coords.longitude <= self.memoLists[item].des[1]+0.01  && self.memoLists[item].reminded){
 								self.memoLists[item].arrived = true
 								self.timer1 = setInterval(self.leaveplace,1000) 
 							}
 						}else{
 							if (!(self.memoLists[item].des[0]-0.01 <= p.coords.latitude && p.coords.latitude <= self.memoLists[item].des[0]+0.01 && self.memoLists[item].des[1]-0.01 <= p.coords.longitude && p.coords.longitude <= self.memoLists[item].des[1]+0.01)){
-								if (!self.memoLists[item].isAllFinished){
+								if ((!self.memoLists[item].isAllFinished) && self.memoLists[item].reminded){
 									//把到达地点状态重新设为假，因为用户现在未做完事情
 									self.memoLists[item].arrived = false
+									//提醒状态重新设定为假
+									self.memoLists[item].reminded == false
 									clearInterval(self.timer1)
 									self.player.play()
 									this.vibrate1 = setInterval(function(){
