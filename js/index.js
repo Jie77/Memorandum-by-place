@@ -146,36 +146,34 @@ function plusReady(){
 
 			},
 			watch:{
-				//在这里实现联想输入功能
-				memoInput:function(){
-					//实现关键词联想
-					that = this
-					AMap.plugin('AMap.Autocomplete',function(){ 
-						const autoOptions = {
-							city:'西安市',//城市，默认全国
-							input:"drivepos" //使用联想输入的input的id
-						}
-						var autocomplete = new AMap.Autocomplete(autoOptions)
-						AMap.event.addListener(autocomplete,"select",function(item){
-							console.log(item)
-							that.memoInput = item.poi.name
-							that.desPosition = [item.poi.location.lng,item.poi.location.lat]
-							console.log("修改目的地成功:"+that.desPosition)
-							//移动地图中心到目标地点
-							map.setCenter([item.poi.location.lng,item.poi.location.lat])
-							//放大地图
-							map.setZoom(15)
-							//对目标地点进行标记
-							marker = new AMap.Marker({
-								position: [item.poi.location.lng,item.poi.location.lat],
-								map:map
-							})
-						})
-					})
-				},
 				tripwayIndex:function(){
 					console.log("出行方式代号改变："+this.tripwayIndex)
 				}
+			},
+			mounted () {
+				that = this
+				AMap.plugin('AMap.Autocomplete',function(){ 
+					const autoOptions = {
+						city:'西安市',//城市，默认全国
+						input:"drivepos" //使用联想输入的input的id
+					}
+					var autocomplete = new AMap.Autocomplete(autoOptions)
+					AMap.event.addListener(autocomplete,"select",function(item){
+						console.log(item)
+						that.memoInput = item.poi.name
+						that.desPosition = [item.poi.location.lng,item.poi.location.lat]
+						console.log("修改目的地成功:"+that.desPosition)
+						//移动地图中心到目标地点
+						map.setCenter([item.poi.location.lng,item.poi.location.lat])
+						//放大地图
+						map.setZoom(15)
+						//对目标地点进行标记
+						marker = new AMap.Marker({
+							position: [item.poi.location.lng,item.poi.location.lat],
+							map:map
+						})
+					})
+				})
 			}
 		})
 	})

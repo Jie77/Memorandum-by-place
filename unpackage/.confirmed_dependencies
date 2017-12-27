@@ -1,12 +1,12 @@
 {
-	"index.html": {
-		"refer": [
-			"memo.html"
-		]
-	},
-	"memo.html": {
-		"refer": [
-			"index.html"
-		]
-	}
+  "index.html": {
+    "refer": [
+      "memo.html"
+    ]
+  },
+  "memo.html": {
+    "refer": [
+      "index.html"
+    ]
+  }
 }

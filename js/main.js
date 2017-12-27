@@ -218,7 +218,7 @@ function plusReady(){
 						let self = this
 						clearInterval(this.timer)
 						//弹出提醒框
-						mui.confirm('hey,到点了老兄！', '地点：'+this.memoLists[item].place, btnArray, function(e) {
+						mui.confirm('提醒时间到', '地点：'+this.memoLists[item].place, btnArray, function(e) {
 							if (e.index == 0) {
 								self.stopRemind()
 							}
